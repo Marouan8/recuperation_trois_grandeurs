@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Récupération des trois grandeurs physiques</title>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/particle-api-js/5/particle.min.js"></script>
+<center>
+<br><br><br>
+Valeur de la température :<input type="text" value="" name="temperateuro"id="valt1" size="50">
+<br><br>
+Valeur de la pression :<input type="text" value="" name="pressiono"id="valt2" size="50">
+<br><br>
+Valeur de l'altitude :<input type="text" value="" name="altitudo" id="valt3"size="50">
+<br><br><br>
+<input type="submit" value="Lire les trois grandeurs données par le photon"id="LireT" onclick="LireTemp();LirePress();LireAlt()">
+</center>
+<script>
+var particle = new Particle();
+var token = '9164dccf68c85235318096a15b130b54fcd98c56';// on récupére ce code d'accés à partir de notre compte Particle
+function LireTemp()
+{
+var obj=document.getElementById("valt1");
+var promesse =
+particle.getVariable({deviceId:'2b0035000b47363433353735',name:'temperature',auth:token});
+//obj.value="Température mesurée par le photon";
+promesse.then
+(
+function(data)
+{
+var f=parseFloat(data.body.result);
+f=f.toFixed(2);
+obj.value=f.toString() + " °Celcius";
+},
+function(err)
+{
+console.log('An error occured while getting attrs:',err);
+}
+);
+}
+function LirePress()
+{
+var obj=document.getElementById("valt2");
+var promesse =
+particle.getVariable({deviceId:'2b0035000b47363433353735',name:'pression',auth:token});
+//obj.value="Pression mesurée par le photon";
+promesse.then
+(
+function(data)
+{
+var f=parseFloat(data.body.result);
+f=f.toFixed(2);
+obj.value=f.toString() + " passcal";
+},
+function(err)
+{
+console.log('An error occured while getting attrs:',err);
+}
+);
+}
+function LireAlt()
+{
+var obj=document.getElementById("valt3");
+var promesse =
+particle.getVariable({deviceId:'2b0035000b47363433353735',name:'altitude',auth:token});
+//obj.value="Altitude mesurée par le photon";
+promesse.then
+(
+function(data)
+{
+var f=parseFloat(data.body.result);
+f=f.toFixed(2);
+obj.value=f.toString() + " mètre";
+},
+function(err)
+{
+console.log('An error occured while getting attrs:',err);
+}
+);
+}
+</script>
+</body>
+</html>
